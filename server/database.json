@@ -1,0 +1,27 @@
+{
+  "defaultEnv": { "Env": "ENV" },
+  "dev": {
+    "driver": "pg",
+    "database": "classroom",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "node-app",
+    "password": "password"
+  },
+  "test": {
+    "driver": "pg",
+    "database": { "ENV": "POSTGRES_TEST_DB" },
+    "host": { "ENV": "POSTGRES_HOST" },
+    "port": "5432",
+    "user": { "ENV": "POSTGRES_USER" },
+    "password": { "ENV": "POSTGRES_PASSWORD" }
+  },
+  "production": {
+    "driver": "pg",
+    "database": { "ENV": "POSTGRES_DB" },
+    "host": { "ENV": "POSTGRES_HOST" },
+    "port": "5432",
+    "user": { "ENV": "POSTGRES_USER" },
+    "password": { "ENV": "POSTGRES_PASSWORD" }
+  }
+}

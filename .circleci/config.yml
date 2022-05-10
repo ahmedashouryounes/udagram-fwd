@@ -1,0 +1,52 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.1.0
+  aws-cli: circleci/aws-cli@1.3.1
+  eb: circleci/aws-elastic-backanstalk@1.0.0
+
+jobs:
+  CICD:
+    docker:
+      - image: "cimg/node:16.15.0"
+    steps:
+      - node/install
+      - checkout
+      - eb/setup
+      - aws-cli/install
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: AWS_DEFAULT_REGION
+
+      - run:
+          name: Install Frontend  dependencies
+          command: npm front-install
+      - run:
+          name: Install Backend dependencies
+          command: npm back-install
+      - run:
+          name: Frontend build
+          command: npm front-build
+      - run:
+          name: Backend build
+          command: npm back-build
+      - run:
+          name: Frontend test
+          command: npm front-test
+      - run:
+          name: Backend test
+          command: npm back-test
+      - run:
+          name: Frontend deploy
+          command: npm front-deploy
+      - run:
+          name: Backend deploy
+          command: npm back-deploy
+
+workflows:
+  build-deploy:
+    jobs:
+      - CICD:
+          filters:
+            branches:
+              only: [main]

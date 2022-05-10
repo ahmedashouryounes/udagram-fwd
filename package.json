@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "back-install": "cd server && yarn",
+    "front-install": "cd client && yarn",
+    "back-build": "cd server && yarn build",
+    "front-build": "cd client && yarn build",
+    "back-test": "cd server && yarn test",
+    "front-test": "cd client && yarn test",
+    "back-deploy": "cd server/dist && eb init server-udagram-fwd -r $AWS_DEFAULT_REGION -p node.js && eb use Serverudagramfwd-env &&  eb setenv POSTGRES_HOST=$POSTGRES_HOST POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PASSWORD=$POSTGRES_PASSWORD BCRYPT_PASSWORD=$BCRYPT_PASSWORD TOKEN_SECRET=$TOKEN_SECRET SALT_ROUNDS=$SALT_ROUNDS ENV=$ENV PORT=$PORT && eb deploy",
+    "front-deploy": "aws s3 cp client/build/ s3://my-bucketddd1123 --recursive"
+  },
+  "devDependencies": {}
+}
